@@ -1,0 +1,14 @@
+*{
+    margin-top: .5em;
+}
+
+
+select {
+	height:30px;
+	width:500px;
+	font-size: 15px;
+	border: 1px solid lightgrey;
+	border-radius: 5px;
+	text-indent: 3px;
+	color: black;
+}
