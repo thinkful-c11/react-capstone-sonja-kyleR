@@ -98,7 +98,7 @@ app.post('/api/:category/:unhealthyfood', (req, res) => {
 app.post('/api/:category/:unhealthyfood/:healthyfood', (req, res) => {
     HealthyFoods
         .create({
-            name: req.params.healthfood,
+            name: req.params.healthyfood,
             correspondingUnhealthyFood: req.params.unhealthyfood
         })
         .then(healthyfood => res.status(201).json(healthyfood))
