@@ -15,7 +15,7 @@ const app = express();
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
     Categories
         .find()
         .exec()
