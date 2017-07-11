@@ -1,0 +1,14 @@
+
+.addOption{
+    margin:auto;
+    margin-top: 1em;
+    height: 100px;
+    max-width: 50%;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}
+
+button{
+    display:block;
+    margin:auto;
+}

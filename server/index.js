@@ -1,3 +1,5 @@
+//schemas
+//const Tastes = require('./models/tasteSchema');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const {TEST_DATABASE_URL, PORT} = require('./config');
@@ -14,6 +16,11 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(morgan('common'));
 app.use(bodyParser.json());
+app.use(express.static('../client/src/'));
+
+app.get('/', function(req, res) {
+  res.sendFile(__dirname + '/index.js');
+});
 
 app.get('/api', (req, res) => {
     Categories
