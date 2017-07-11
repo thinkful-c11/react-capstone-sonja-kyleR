@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
         .catch(err => console.error(err));
 });
 
-app.get('/unhealthyfoods', (req, res) => {
+app.get('/api/unhealthyfoods', (req, res) => {
     UnhealthyFoods
         .find()
         .exec()
@@ -35,7 +35,7 @@ app.get('/unhealthyfoods', (req, res) => {
         .catch(err => console.error(err));
 });
 
-app.get('/:category', (req, res) => {
+app.get('/api/:category', (req, res) => {
     UnhealthyFoods
         .find({
             category: req.params.category
@@ -47,7 +47,7 @@ app.get('/:category', (req, res) => {
         .catch(err => console.error(err));
 });
 
-app.get('/:category/:unhealthyfood', (req, res) => {
+app.get('/api/:category/:unhealthyfood', (req, res) => {
     HealthyFoods
         .find({
             correspondingUnhealthyFood: req.params.unhealthyfood,
@@ -59,7 +59,7 @@ app.get('/:category/:unhealthyfood', (req, res) => {
         .catch(err => console.error(err));
 });
 
-app.post('/:category', (req, res) => {
+app.post('/api/:category', (req, res) => {
     Categories
         .create({
             name: req.params.category
@@ -73,7 +73,7 @@ app.post('/:category', (req, res) => {
         });
 });
 
-app.post('/:category/:unhealthyfood', (req, res) => {
+app.post('/api/:category/:unhealthyfood', (req, res) => {
     UnhealthyFoods
         .create({
             category: req.params.category,
@@ -88,7 +88,7 @@ app.post('/:category/:unhealthyfood', (req, res) => {
         });
 });
 
-app.post('/:category/:unhealthyfood/:healthyfood', (req, res) => {
+app.post('/api/:category/:unhealthyfood/:healthyfood', (req, res) => {
     HealthyFoods
         .create({
             name: req.params.healthfood,
