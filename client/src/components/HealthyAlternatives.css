@@ -1,0 +1,16 @@
+*{
+    margin-top:.5em;
+}
+
+.alternatives{
+    margin: auto;
+    max-width: 50%;
+    margin-top:2em;
+    padding-bottom: .5em;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}
+
+.item{
+    display:block;
+}

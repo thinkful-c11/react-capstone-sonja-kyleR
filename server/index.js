@@ -1,12 +1,8 @@
-<<<<<<< HEAD
-'use strict';
-=======
 //schemas
 const Tastes = require('./models/tasteSchema');
 const Categories = require('./models/categorySchema');
 const UnhealthyFoods = require('./models/unhealthyFoodsSchema');
 const HealthyFoods = require('./models/healthyFoodsSchema');
->>>>>>> 9cf71ad7cb591e54937641a4b21f2a84fe8dbac9
 
 const path = require('path');
 const express = require('express');
