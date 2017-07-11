@@ -1,18 +1,30 @@
+<<<<<<< HEAD
 //schemas
 const Tastes = require('./models/tasteSchema');
 const Categories = require('./models/categorySchema');
 const UnhealthyFoods = require('./models/unhealthyFoodsSchema');
 const HealthyFoods = require('./models/healthyFoodsSchema');
+=======
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+const {TEST_DATABASE_URL, PORT} = require('./config');
+
+const Categories = require('./models/categorySchema');
+const UnhealthyFoods = require('./models/unhealthyFoodSchema');
+const HealthyFoods = require('./models/healthyFoodSchema');
+>>>>>>> 6410ec96b2ef75269de45441eab67636efb81831
 
 const path = require('path');
 const express = require('express');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
 const app = express();
-
-// API endpoints go here!
+app.use(morgan('common'));
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-    Tastes
+    Categories
         .find()
         .exec()
         .then(tastes => {
@@ -21,20 +33,19 @@ app.get('/', (req, res) => {
         .catch(err => console.error(err));
 });
 
-app.get('/:taste', (req, res) => {
-    Categories
-        .find({taste: req.params.taste})
+app.get('/api/unhealthyfoods', (req, res) => {
+    UnhealthyFoods
+        .find()
         .exec()
-        .then(category => {
-            res.json(category);
+        .then(allFoods => {
+            res.json(allFoods);
         })
         .catch(err => console.error(err));
 });
 
-app.get('/:taste/:category', (req, res) => {
+app.get('/api/:category', (req, res) => {
     UnhealthyFoods
         .find({
-            taste: req.params.taste,
             category: req.params.category
         })
         .exec()
@@ -44,7 +55,7 @@ app.get('/:taste/:category', (req, res) => {
         .catch(err => console.error(err));
 });
 
-app.get('/:taste/:category/:unhealthyfood', (req, res) => {
+app.get('/api/:category/:unhealthyfood', (req, res) => {
     HealthyFoods
         .find({
             correspondingUnhealthyFood: req.params.unhealthyfood,
@@ -56,32 +67,9 @@ app.get('/:taste/:category/:unhealthyfood', (req, res) => {
         .catch(err => console.error(err));
 });
 
-app.get('/unhealthyfoods', (req, res) => {
-    UnhealthyFoods
-        .find()
-        .exec()
-        .then(allFoods => {
-            res.json(allFoods);
-        })
-        .catch(err => console.error(err));
-});
-
-app.post('/:taste', (req, res) => {
-    Tastes
-        .create({name: req.params.taste})
-        .then(taste => res.status(201).json(taste))
-        .catch(err => {
-            res.status(500).json({
-                message: 'Failed to create taste',
-                error: err
-            });
-        });
-});
-
-app.post('/:taste/:category', (req, res) => {
+app.post('/api/:category', (req, res) => {
     Categories
         .create({
-            taste: req.params.taste,
             name: req.params.category
         })
         .then(category => res.status(201).json(category))
@@ -93,10 +81,9 @@ app.post('/:taste/:category', (req, res) => {
         });
 });
 
-app.post('/:taste/:category/:unhealthyfood', (req, res) => {
+app.post('/api/:category/:unhealthyfood', (req, res) => {
     UnhealthyFoods
         .create({
-            taste: req.params.taste,
             category: req.params.category,
             name: req.params.unhealthyfood
         })
@@ -109,7 +96,7 @@ app.post('/:taste/:category/:unhealthyfood', (req, res) => {
         });
 });
 
-app.post('/:taste/:category/:unhealthyfood/:healthyfood', (req, res) => {
+app.post('/api/:category/:unhealthyfood/:healthyfood', (req, res) => {
     HealthyFoods
         .create({
             name: req.params.healthfood,
@@ -127,29 +114,35 @@ app.post('/:taste/:category/:unhealthyfood/:healthyfood', (req, res) => {
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
-// Unhandled requests which aren't for the API should serve index.html so
-// client-side routing using browserHistory can function
-app.get(/^(?!\/api(\/|$))/, (req, res) => {
-    const index = path.resolve(__dirname, '../client/build', 'index.html');
-    res.sendFile(index);
-});
-
 let server;
-function runServer(port=3001) {
+function runServer(port=PORT, databaseUrl=TEST_DATABASE_URL) {
     return new Promise((resolve, reject) => {
-        server = app.listen(port, () => {
-            resolve();
-        }).on('error', reject);
+        mongoose.connect(databaseUrl, err => {
+            if (err) {
+                return reject(err);
+            }
+            server = app.listen(port, () => {
+                console.log(`Your app is listening on port ${port}`);
+                resolve();
+            });
+        })
+        .on('error', err => {
+            mongoose.disconnect();
+            reject(err);
+        });
     });
 }
 
 function closeServer() {
-    return new Promise((resolve, reject) => {
-        server.close(err => {
-            if (err) {
-                return reject(err);
-            }
-            resolve();
+    return mongoose.disconnect().then(() => {
+        return new Promise((resolve, reject) => {
+            console.log('Closing server');
+            server.close(err => {
+                if (err) {
+                  return reject(err);
+                }
+                resolve();
+            });
         });
     });
 }

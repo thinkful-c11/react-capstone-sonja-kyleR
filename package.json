@@ -4,7 +4,7 @@
   "description": "A full-stack starter template",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "heroku-postbuild": "cd client && npm install --only=dev && npm run build",
     "dev": "run-p dev:server dev:client start",
     "dev:client": "cd client && cross-env BROWSER=none npm start -- --color=always | xp http://localhost:3000/ http://localhost:8080/",
@@ -22,8 +22,13 @@
   "license": "MIT",
   "dependencies": {
     "cross-env": "^3.1.4",
+<<<<<<< HEAD
     "express": "^4.14.1",
     "http-proxy-middleware": "^0.17.3",
+=======
+    "express": "^4.15.3",
+    "http-proxy-middleware": "^0.17.4",
+>>>>>>> 6410ec96b2ef75269de45441eab67636efb81831
     "mongoose": "^4.11.1",
     "npm-run-all": "^4.0.1",
     "react": "^15.6.1",
@@ -31,5 +36,13 @@
     "redux": "^3.7.1",
     "redux-thunk": "^2.2.0",
     "xp": "^1.0.1"
+  },
+  "devDependencies": {
+    "body-parser": "^1.17.2",
+    "chai": "^4.0.2",
+    "chai-http": "^3.0.0",
+    "dotenv": "^4.0.0",
+    "mocha": "^3.4.2",
+    "morgan": "^1.8.2"
   }
 }
