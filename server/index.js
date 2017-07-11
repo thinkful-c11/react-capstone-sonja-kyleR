@@ -56,6 +56,16 @@ app.get('/:taste/:category/:unhealthyfood', (req, res) => {
         .catch(err => console.error(err));
 });
 
+app.get('/unhealthyfoods', (req, res) => {
+    UnhealthyFoods
+        .find()
+        .exec()
+        .then(allFoods => {
+            res.json(allFoods);
+        })
+        .catch(err => console.error(err));
+});
+
 app.post('/:taste', (req, res) => {
     Tastes
         .create({name: req.params.taste})
