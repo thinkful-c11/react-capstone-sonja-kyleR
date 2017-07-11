@@ -6,5 +6,4 @@ const unhealthyFoodsSchema = mongoose.Schema({
     category: { type: String, require: true }
 });
 
-const UnhealthyFoods = mongoose.model('UnhealthyFoods', unhealthyFoodsSchema);
-module.exports = {UnhealthyFoods};
+module.exports = mongoose.model('UnhealthyFoods', unhealthyFoodsSchema);
