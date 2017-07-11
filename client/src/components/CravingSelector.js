@@ -1,14 +1,14 @@
 import React, { Component }  from 'react'; //
 import { connect } from "react-redux";
 import {fetchUnhealthyStuff} from '../actions';
-import {store} from '../store.js';
+//import {store} from '../store.js';
 
 import './CravingSelector.css';
 
 export class CravingSelector extends Component{
     componentDidMount(){
         this.props.dispatch(fetchUnhealthyStuff());
-        console.log(store.getState())
+        //console.log(store.getState())
     }
 
      listUnhealthyStuff(){

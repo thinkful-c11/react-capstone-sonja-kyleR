@@ -22,13 +22,8 @@
   "license": "MIT",
   "dependencies": {
     "cross-env": "^3.1.4",
-<<<<<<< HEAD
     "express": "^4.14.1",
     "http-proxy-middleware": "^0.17.3",
-=======
-    "express": "^4.15.3",
-    "http-proxy-middleware": "^0.17.4",
->>>>>>> 6410ec96b2ef75269de45441eab67636efb81831
     "mongoose": "^4.11.1",
     "npm-run-all": "^4.0.1",
     "react": "^15.6.1",

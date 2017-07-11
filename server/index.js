@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 //schemas
-const Tastes = require('./models/tasteSchema');
-const Categories = require('./models/categorySchema');
-const UnhealthyFoods = require('./models/unhealthyFoodsSchema');
-const HealthyFoods = require('./models/healthyFoodsSchema');
-=======
+//const Tastes = require('./models/tasteSchema');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const {TEST_DATABASE_URL, PORT} = require('./config');
@@ -12,7 +7,6 @@ const {TEST_DATABASE_URL, PORT} = require('./config');
 const Categories = require('./models/categorySchema');
 const UnhealthyFoods = require('./models/unhealthyFoodSchema');
 const HealthyFoods = require('./models/healthyFoodSchema');
->>>>>>> 6410ec96b2ef75269de45441eab67636efb81831
 
 const path = require('path');
 const express = require('express');
@@ -23,7 +17,14 @@ const app = express();
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
+app.use(express.static('../client/src/'));
+
+app.get('/', function(req, res) {
+  res.sendFile(__dirname + '/index.js');
+});
+
+
+app.get('/api', (req, res) => {
     Categories
         .find()
         .exec()
