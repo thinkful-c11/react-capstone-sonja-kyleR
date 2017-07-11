@@ -1,17 +1,23 @@
-//schemas
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+const {TEST_DATABASE_URL, PORT} = require('./config');
+
 const Tastes = require('./models/tasteSchema');
 const Categories = require('./models/categorySchema');
-const UnhealthyFoods = require('./models/unhealthyFoodsSchema');
-const HealthyFoods = require('./models/healthyFoodsSchema');
+const UnhealthyFoods = require('./models/unhealthyFoodSchema');
+const HealthyFoods = require('./models/healthyFoodSchema');
 
 const path = require('path');
 const express = require('express');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
 const app = express();
-
-// API endpoints go here!
+app.use(morgan('common'));
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
+    // res.json({hello: 'world'});
     Tastes
         .find()
         .exec()
@@ -127,29 +133,35 @@ app.post('/:taste/:category/:unhealthyfood/:healthyfood', (req, res) => {
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
-// Unhandled requests which aren't for the API should serve index.html so
-// client-side routing using browserHistory can function
-app.get(/^(?!\/api(\/|$))/, (req, res) => {
-    const index = path.resolve(__dirname, '../client/build', 'index.html');
-    res.sendFile(index);
-});
-
 let server;
-function runServer(port=3001) {
+function runServer(port=PORT, databaseUrl=TEST_DATABASE_URL) {
     return new Promise((resolve, reject) => {
-        server = app.listen(port, () => {
-            resolve();
-        }).on('error', reject);
+        mongoose.connect(databaseUrl, err => {
+            if (err) {
+                return reject(err);
+            }
+            server = app.listen(port, () => {
+                console.log(`Your app is listening on port ${port}`);
+                resolve();
+            });
+        })
+        .on('error', err => {
+            mongoose.disconnect();
+            reject(err);
+        });
     });
 }
 
 function closeServer() {
-    return new Promise((resolve, reject) => {
-        server.close(err => {
-            if (err) {
-                return reject(err);
-            }
-            resolve();
+    return mongoose.disconnect().then(() => {
+        return new Promise((resolve, reject) => {
+            console.log('Closing server');
+            server.close(err => {
+                if (err) {
+                  return reject(err);
+                }
+                resolve();
+            });
         });
     });
 }
