@@ -22,3 +22,21 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+
+.glass{
+	height: 30px;
+	width: 30px;
+	position: relative;
+	top: 10px;
+
+	margin-left: 5px;
+	border: 1px solid lightgrey;
+	border-radius: 5px;
+}
+
+.glass:hover{
+	border: 2px solid grey;
+}
+
+
