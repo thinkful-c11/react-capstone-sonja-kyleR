@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const {TEST_DATABASE_URL, PORT} = require('./config');
 
-const Tastes = require('./models/tasteSchema');
 const Categories = require('./models/categorySchema');
 const UnhealthyFoods = require('./models/unhealthyFoodSchema');
 const HealthyFoods = require('./models/healthyFoodSchema');
@@ -17,47 +16,11 @@ app.use(morgan('common'));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-    // res.json({hello: 'world'});
-    Tastes
+    Categories
         .find()
         .exec()
         .then(tastes => {
             res.json(tastes);
-        })
-        .catch(err => console.error(err));
-});
-
-app.get('/:taste', (req, res) => {
-    Categories
-        .find({taste: req.params.taste})
-        .exec()
-        .then(category => {
-            res.json(category);
-        })
-        .catch(err => console.error(err));
-});
-
-app.get('/:taste/:category', (req, res) => {
-    UnhealthyFoods
-        .find({
-            taste: req.params.taste,
-            category: req.params.category
-        })
-        .exec()
-        .then(unhealthyfood => {
-            res.json(unhealthyfood);
-        })
-        .catch(err => console.error(err));
-});
-
-app.get('/:taste/:category/:unhealthyfood', (req, res) => {
-    HealthyFoods
-        .find({
-            correspondingUnhealthyFood: req.params.unhealthyfood,
-        })
-        .exec()
-        .then(healthyfood => {
-            res.json(healthyfood);
         })
         .catch(err => console.error(err));
 });
@@ -72,22 +35,33 @@ app.get('/unhealthyfoods', (req, res) => {
         .catch(err => console.error(err));
 });
 
-app.post('/:taste', (req, res) => {
-    Tastes
-        .create({name: req.params.taste})
-        .then(taste => res.status(201).json(taste))
-        .catch(err => {
-            res.status(500).json({
-                message: 'Failed to create taste',
-                error: err
-            });
-        });
+app.get('/:category', (req, res) => {
+    UnhealthyFoods
+        .find({
+            category: req.params.category
+        })
+        .exec()
+        .then(unhealthyfood => {
+            res.json(unhealthyfood);
+        })
+        .catch(err => console.error(err));
 });
 
-app.post('/:taste/:category', (req, res) => {
+app.get('/:category/:unhealthyfood', (req, res) => {
+    HealthyFoods
+        .find({
+            correspondingUnhealthyFood: req.params.unhealthyfood,
+        })
+        .exec()
+        .then(healthyfood => {
+            res.json(healthyfood);
+        })
+        .catch(err => console.error(err));
+});
+
+app.post('/:category', (req, res) => {
     Categories
         .create({
-            taste: req.params.taste,
             name: req.params.category
         })
         .then(category => res.status(201).json(category))
@@ -99,10 +73,9 @@ app.post('/:taste/:category', (req, res) => {
         });
 });
 
-app.post('/:taste/:category/:unhealthyfood', (req, res) => {
+app.post('/:category/:unhealthyfood', (req, res) => {
     UnhealthyFoods
         .create({
-            taste: req.params.taste,
             category: req.params.category,
             name: req.params.unhealthyfood
         })
@@ -115,7 +88,7 @@ app.post('/:taste/:category/:unhealthyfood', (req, res) => {
         });
 });
 
-app.post('/:taste/:category/:unhealthyfood/:healthyfood', (req, res) => {
+app.post('/:category/:unhealthyfood/:healthyfood', (req, res) => {
     HealthyFoods
         .create({
             name: req.params.healthfood,
