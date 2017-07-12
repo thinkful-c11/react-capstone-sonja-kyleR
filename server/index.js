@@ -18,9 +18,9 @@ app.use(morgan('common'));
 app.use(bodyParser.json());
 app.use(express.static('../client/src/'));
 
-app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/index.js');
-});
+// app.get('/', function(req, res) {
+//   res.sendFile(__dirname + '/index.js');
+// });
 
 app.get('/api', (req, res) => {
     Categories
@@ -123,11 +123,11 @@ function runServer(port=PORT, databaseUrl=TEST_DATABASE_URL) {
             server = app.listen(port, () => {
                 console.log(`Your app is listening on port ${port}`);
                 resolve();
+            })
+            .on('error', err => {
+                mongoose.disconnect();
+                reject(err);
             });
-        })
-        .on('error', err => {
-            mongoose.disconnect();
-            reject(err);
         });
     });
 }
