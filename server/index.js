@@ -90,10 +90,10 @@ app.post('/api/:category', (req, res) => {
         });
 });
 
-app.post('/api/:category/:unhealthyfood', (req, res) => {
+app.post('/api/unhealthy/:unhealthyfood', (req, res) => {
     UnhealthyFoods
         .create({
-            category: req.params.category,
+            category: "unknown",
             name: req.params.unhealthyfood
         })
         .then(unhealthyfood => res.status(201).json(unhealthyfood))

@@ -78,6 +78,43 @@ export const fetchHealthyStuff = (selectedUnhealthy) =>dispatch=>{
   })
 }
 
+
+export const POST_UNHEALTHY_REQUEST = 'POST_UNHEALTHY_REQUEST';
+export const postUnhealthyRequest = (newCraving)=>({
+  type: POST_UNHEALTHY_REQUEST,
+  newCraving
+});
+
+export const POST_UNHEALTHY_ERROR = 'POST_UNHEALTHY_ERROR';
+export const postUnhealthyError = (error)=>({
+  type: POST_UNHEALTHY_ERROR,
+  error
+});
+
+export const POST_UNHEALTHY = 'POST_UNHEALTHY';
+export const postUnhealthy = (unhealthyThing)=>dispatch=>{
+  dispatch(postUnhealthyRequest(unhealthyThing))
+  const params = {
+    method: 'POST',
+    body: JSON.stringify({name: unhealthyThing.name}),
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  }
+  fetch(`/api/unhealthy/${unhealthyThing.name}`, params)
+  .then(response => {
+    if(!response.ok){
+      Promise.reject(response.statusText)
+    }
+    dispatch(fetchUnhealthyStuff());
+  })
+  .catch(error => {
+    console.error(error)
+    dispatch(postUnhealthyError(error))
+  })
+}
+
 //sync actions
 
 export const SELECT_CRAVING = 'SELECT_CRAVING';

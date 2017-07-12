@@ -1,6 +1,6 @@
 import React, { Component }  from 'react'; 
 import { connect } from "react-redux";
-import {fetchHealthyStuff} from '../actions';
+//import {fetchHealthyStuff} from '../actions';
 //import {store} from '../store.js';
 
 import './HealthyAlternatives.css';
