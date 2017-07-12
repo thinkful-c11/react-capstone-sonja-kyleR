@@ -21,7 +21,7 @@ export const fetchUnhealthyError = (error)=>({
 export const FETCH_UNHEALTHY = 'FETCH_UNHEALTHY';
 export const fetchUnhealthyStuff = ()=>dispatch=>{
   dispatch(fetchUnhealthyRequest())
-  fetch('/api/unhealthyfoods')
+  return fetch('/api/unhealthyfoods')
   .then(response => {
     if(!response.ok){
       Promise.reject(response.statusText);
@@ -29,7 +29,7 @@ export const fetchUnhealthyStuff = ()=>dispatch=>{
     return response.json()
   })
   .then(json => {
-    console.log("this is unhealthy json: " + json);
+    console.log("this is unhealthy json: ", json);
     return dispatch(fetchUnhealthySuccess(json))
   })
   .catch(err => {

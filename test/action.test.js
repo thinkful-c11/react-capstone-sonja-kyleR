@@ -1,6 +1,5 @@
-// require('isomorphic-fetch');
 import * as actions from '../client/src/actions/index';
-const expect = require('chai').expect;
+// import * as actions from './index';
 
 // Sync actions
 describe('selectCraving()', function() {
@@ -27,21 +26,18 @@ describe('resetDefaults()', function() {
 // End sync actions
 
 // Async actions
-describe('fetchUnhealthy()', function() {
+describe.only('fetchUnhealthy()', function() {
     it('should dispatch fetchUnhealthySuccess', function() {
-        global.fetch = jest.fn().mockImplementation(() => {
-            Promise.resolve({
-                ok: true,
-                json() { return {}; }
-            });
+        global.fetch = jest.fn().mockImplementation( url => {
+            return new Promise( (res, rej) => res({ok:true, json() { return {}; }}));
         });
         const dispatch = jest.fn();
-        
+
         return actions.fetchUnhealthyStuff()(dispatch).then(() => {
             // Check that we made a request to the correct URL
             expect(fetch).toHaveBeenCalledWith('/api/unhealthyfoods');
             // Make sure that we dispatched the correct sync action
-            expect(dispatch).toHaveBeenCalledWith(fetchUnhealthyStuff());
+            expect(dispatch).toHaveBeenCalledWith(actions.fetchUnhealthySuccess({}));
         });
     });
 });
