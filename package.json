@@ -12,7 +12,8 @@
     "install": "run-s install:server install:client",
     "install:server": "cd server && npm install",
     "install:client": "cd client && npm install",
-    "test": "mocha test/test-server/test-api.js --compilers js:babel-core/register"
+    "test": "mocha test/test-client/test-actions.js --compilers js:babel-core/register",
+    "jest": "jest"
   },
   "cacheDirectories": [
     "node_modules",
@@ -28,8 +29,10 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "cross-env": "^3.1.4",
+    "es6-promise": "^4.1.1",
     "express": "^4.14.1",
     "http-proxy-middleware": "^0.17.3",
+    "isomorphic-fetch": "^2.2.1",
     "mongoose": "^4.11.1",
     "npm-run-all": "^4.0.1",
     "react": "^15.6.1",
@@ -45,6 +48,7 @@
     "chai": "^4.0.2",
     "chai-http": "^3.0.0",
     "dotenv": "^4.0.0",
+    "jest": "^20.0.4",
     "mocha": "^3.4.2",
     "morgan": "^1.8.2"
   }
