@@ -6,4 +6,4 @@ exports.DATABASE_URL = process.env.DATABASE_URL ||
 exports.TEST_DATABASE_URL = process.env.TEST_DATABASE_URL ||
                        global.TEST_DATABASE_URL
                       
-exports.PORT = 8082;
+exports.PORT = process.env.PORT || 8081;
