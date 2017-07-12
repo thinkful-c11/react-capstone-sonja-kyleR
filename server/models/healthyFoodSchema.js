@@ -5,4 +5,4 @@ const healthyFoodsSchema = mongoose.Schema({
     correspondingUnhealthyFood: { type: String, require: true }
 });
 
-module.exports = mongoose.model('healthyFoods', healthyFoodsSchema);
+module.exports = mongoose.model('HealthyFoods', healthyFoodsSchema);

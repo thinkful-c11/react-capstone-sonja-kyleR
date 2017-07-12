@@ -1,3 +1,5 @@
+//async actions
+
 export const FETCH_UNHEALTHY_REQUEST = 'FETCH_UNHEALTHY_REQUEST';
 export const fetchUnhealthyRequest = ()=>({
   type: FETCH_UNHEALTHY_REQUEST
@@ -27,6 +29,7 @@ export const fetchUnhealthyStuff = ()=>dispatch=>{
     return response.json()
   })
   .then(json => {
+    console.log("this is unhealthy json: " + json);
     return dispatch(fetchUnhealthySuccess(json))
   })
   .catch(err => {
@@ -36,14 +39,14 @@ export const fetchUnhealthyStuff = ()=>dispatch=>{
 }
 
 export const FETCH_HEALTHY_REQUEST = 'FETCH_HEALTHY_REQUEST';
-export const fetchHealthyRequest = (unhealthyfood)=>({
+export const fetchHealthyRequest = (selectedUnhealthy)=>({
   type: FETCH_HEALTHY_REQUEST,
-  unhealthyfood
+  selectedUnhealthy
 });
 
 export const FETCH_HEALTHY_SUCCESS = 'FETCH_HEALTHY_SUCCESS';
 export const fetchHealthySuccess = (healthyStuff)=>({
-  type: FETCH_UNHEALTHY_SUCCESS,
+  type: FETCH_HEALTHY_SUCCESS,
   healthyStuff
 });
 
@@ -54,20 +57,36 @@ export const fetchHealthyError = (error)=>({
 });
 
 export const FETCH_HEALTHY = 'FETCH_HEALTHY';
-export const fetchHealthyStuff = () =>dispatch=>{
-  dispatch(fetchHealthyRequest())
-  fetch('/api/healthyfoods')
+export const fetchHealthyStuff = (selectedUnhealthy) =>dispatch=>{
+  dispatch(fetchHealthyRequest(selectedUnhealthy))
+  fetch(`/api/healthy/${selectedUnhealthy}`)
   .then(response => {
     if(!response.ok){
+      //console.log('response not ok');
       Promise.reject(response.statusText);
     }
     return response.json()
   })
   .then(json => {
-    return dispatch(fetchHealthySuccess(json))
+    //console.log('response successful!');
+    //console.log('this is json:' + json[0]);
+    return dispatch(fetchHealthySuccess(json));
   })
   .catch(err => {
-    console.log(err);
+    console.log('there was an error: ' + err);
     dispatch(fetchHealthyError(err));
   })
 }
+
+//sync actions
+
+export const SELECT_CRAVING = 'SELECT_CRAVING';
+export const selectCraving = (craving) => ({
+    type: SELECT_CRAVING,
+    craving
+});
+
+export const ADD_OTHER_CRAVING = 'ADD_OTHER_CRAVING';
+export const addOtherCraving = () => ({
+    type: ADD_OTHER_CRAVING,
+});
