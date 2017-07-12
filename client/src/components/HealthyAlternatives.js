@@ -28,6 +28,7 @@ export class HealthyAlternatives extends Component {
                 {this.listHealthyStuff()}
                 <div className='item'>
                     <input type="text" placeholder="Add a craving buster"></input>
+                    <button>+</button>
                 </div>
             </div>   
         );
