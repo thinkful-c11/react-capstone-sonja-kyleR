@@ -6,7 +6,7 @@ export default function AddOptionForm(){
     return(
         <div className='addOption'>
             Don't see your craving? Tell us what you're after!
-            <textarea> </textarea>
+            <input type="text" placeholder="Vegan cheese"></input>
             <button>Tell us!</button>
         </div>
     );

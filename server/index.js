@@ -42,6 +42,16 @@ app.get('/api/unhealthyfoods', (req, res) => {
         .catch(err => console.error(err));
 });
 
+app.get('/api/healthyfoods', (req, res) => {
+    HealthyFoods
+        .find()
+        .exec()
+        .then(allFoods => {
+            res.json(allFoods);
+        })
+        .catch(err => console.error(err));
+});
+
 app.get('/api/:category', (req, res) => {
     UnhealthyFoods
         .find({
@@ -108,6 +118,18 @@ app.post('/api/:category/:unhealthyfood/:healthyfood', (req, res) => {
                 error: err
             });
         });
+});
+
+app.get('/api/healthy/:unhealthyfood', (req, res) => {
+    HealthyFoods
+        .find({
+            correspondingUnhealthyFood: req.params.unhealthyfood,
+        })
+        .exec()
+        .then(healthyfood => {
+            res.json(healthyfood);
+        })
+        .catch(err => console.error(err));
 });
 
 // Serve the built client
