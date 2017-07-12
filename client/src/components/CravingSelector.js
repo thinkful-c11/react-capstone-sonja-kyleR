@@ -1,6 +1,6 @@
 import React, { Component }  from 'react'; //
 import { connect } from "react-redux";
-import {fetchUnhealthyStuff, selectCraving, fetchHealthyStuff, addOtherCraving} from '../actions';
+import {fetchUnhealthyStuff, selectCraving, fetchHealthyStuff, addOtherCraving, resetDefaults} from '../actions';
 import store from '../store.js';
 
 import './CravingSelector.css';
@@ -24,6 +24,9 @@ export class CravingSelector extends Component{
     onChange(e){
         if(e.target.value === "Other"){
             this.props.dispatch(addOtherCraving());
+        }
+        else if(e.target.value === "Select a craving"){
+            this.props.dispatch(resetDefaults());
         }
         else{
             this.props.dispatch(selectCraving(e.target.value));

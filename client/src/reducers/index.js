@@ -1,6 +1,6 @@
 import {FETCH_UNHEALTHY_ERROR, FETCH_UNHEALTHY_REQUEST, FETCH_UNHEALTHY_SUCCESS, 
     FETCH_HEALTHY_ERROR, FETCH_HEALTHY_REQUEST, FETCH_HEALTHY_SUCCESS, SELECT_CRAVING,
-    ADD_OTHER_CRAVING} from '../actions'
+    ADD_OTHER_CRAVING, RESET_DEFAULTS} from '../actions'
 
 const initialState = {
   unhealthyStuff: [],
@@ -30,6 +30,9 @@ export const reducer = (state = initialState, action) => {
         return Object.assign({}, state, {selectedUnhealthy:action.craving, showAddOption: false});
     case ADD_OTHER_CRAVING:
         return Object.assign({}, state, {showHealthyStuff: false, showAddOption: true});
+    case RESET_DEFAULTS:
+        return Object.assign({}, state, {showHealthyStuff: false, showAddOption: false, selectedUnhealthy: "", 
+                                         healthyStuff: [], loading: false, error: null,});
     default:
       return state;
   }

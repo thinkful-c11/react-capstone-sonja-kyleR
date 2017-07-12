@@ -90,3 +90,8 @@ export const ADD_OTHER_CRAVING = 'ADD_OTHER_CRAVING';
 export const addOtherCraving = () => ({
     type: ADD_OTHER_CRAVING,
 });
+
+export const RESET_DEFAULTS = 'RESET_DEFAULTS';
+export const resetDefaults = () => ({
+    type: RESET_DEFAULTS,
+});
