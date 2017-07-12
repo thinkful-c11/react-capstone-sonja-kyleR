@@ -1,5 +1,5 @@
+/* global expect jest fetch */
 import * as actions from '../client/src/actions/index';
-// import * as actions from './index';
 
 // Sync actions
 describe('selectCraving()', function() {
@@ -27,6 +27,20 @@ describe('resetDefaults()', function() {
 
 // Async actions
 describe.only('fetchUnhealthy()', function() {
+    it('should dispatch fetchUnhealthyRequest', function() {
+        global.fetch = jest.fn().mockImplementation( url => {
+            return new Promise( (res, rej) => res({ok:true, json() { return {}; }}));
+        });
+        const dispatch = jest.fn();
+
+        return actions.fetchUnhealthyStuff()(dispatch).then(() => {
+            // Check that we made a request to the correct URL
+            expect(fetch).toHaveBeenCalled();
+            // Make sure that we dispatched the correct sync action
+            expect(dispatch).toHaveBeenCalledWith(actions.fetchUnhealthyRequest());
+        });
+    });
+    
     it('should dispatch fetchUnhealthySuccess', function() {
         global.fetch = jest.fn().mockImplementation( url => {
             return new Promise( (res, rej) => res({ok:true, json() { return {}; }}));
@@ -38,6 +52,21 @@ describe.only('fetchUnhealthy()', function() {
             expect(fetch).toHaveBeenCalledWith('/api/unhealthyfoods');
             // Make sure that we dispatched the correct sync action
             expect(dispatch).toHaveBeenCalledWith(actions.fetchUnhealthySuccess({}));
+        });
+    });
+    
+    it('should dispatch fetchUnhealthyError', function() {
+        global.fetch = jest.fn().mockImplementation( url => {
+            return new Promise( (res, rej) => rej(new Error));
+        });
+        const dispatch = jest.fn();
+
+        return actions.fetchUnhealthyStuff()(dispatch).then(() => {
+            // Check that we made a request to the correct URL
+            expect(fetch).toHaveBeenCalledWith('/api/unhealthyfoods');
+            // Make sure that we dispatched the correct sync action
+            expect(dispatch).toHaveBeenCalledWith(actions.fetchUnhealthyRequest());
+            expect(dispatch).toHaveBeenCalledWith(actions.fetchUnhealthyError(new Error));
         });
     });
 });
