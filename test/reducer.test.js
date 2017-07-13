@@ -121,7 +121,7 @@ describe('reducer', function() {
         expect(state).toEqual(Object.assign({}, state, {showHealthyStuff: false, showAddOption: true}))
     });
     
-    it('should on RESET_DEFAULTS', function() {
+    it('should on reset state to initialState on RESET_DEFAULTS', function() {
         const myState = Object.assign({}, initialState);
         const state = reducer(
             myState, 
