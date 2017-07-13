@@ -59,7 +59,7 @@ export const fetchHealthyError = (error)=>({
 export const FETCH_HEALTHY = 'FETCH_HEALTHY';
 export const fetchHealthyStuff = (selectedUnhealthy) =>dispatch=>{
   dispatch(fetchHealthyRequest(selectedUnhealthy))
-  fetch(`/api/healthy/${selectedUnhealthy}`)
+  return fetch(`/api/healthy/${selectedUnhealthy}`)
   .then(response => {
     if(!response.ok){
       //console.log('response not ok');
