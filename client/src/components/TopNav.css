@@ -10,3 +10,10 @@ nav a {
     float: right;
 	color: black;
 }
+
+@media(max-width: 600px){
+    nav{
+        padding-right: .5em;
+        padding-top: .1em;
+    }
+}

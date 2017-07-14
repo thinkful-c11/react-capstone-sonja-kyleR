@@ -24,7 +24,8 @@ export class AddOptionForm extends Component{
     render(){
         return(
             <div className='addOption'>
-                Don't see your craving? Tell us what you're after!
+                Don't see your craving? 
+                Tell us what you're after!
                 <form onSubmit={e => this.onSubmit(e)}>
                     <input type="text" placeholder="Vegan cheese" 
                         ref={input => this.input = input} required/>

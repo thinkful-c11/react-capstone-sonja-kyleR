@@ -5,6 +5,7 @@
     padding-top: 1em;
     padding-bottom: 1em;
     max-width: 50%;
+    min-width: 290px;
     border: 1px solid lightgrey;
     border-radius: 5px;
 }
@@ -17,6 +18,12 @@ input{
 button{
     display:inline-block;
     margin-left:.5em;
-     height: 1.5em;
+    height: 1.5em;
     font-size: 14px;
+}
+
+@media (max-width: 450px){
+	.addOption{
+		max-width:290px;
+	}
 }

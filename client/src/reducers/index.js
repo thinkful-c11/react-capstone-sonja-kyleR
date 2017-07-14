@@ -34,7 +34,7 @@ export const reducer = (state = initialState, action) => {
     case ADD_OTHER_CRAVING:
         return Object.assign({}, state, {showHealthyStuff: false, showAddOption: true, selectedUnhealthy:"Other"});
     case RESET_DEFAULTS:
-        return Object.assign({}, state, {showHealthyStuff: false, showAddOption: false, selectedUnhealthy: "Select a craving", 
+        return Object.assign({}, state, {showHealthyStuff: false, showAddOption: false, selectedUnhealthy: "", 
                                          healthyStuff: [], loading: false, error: null, busterAlreadyExists: false});
     case BUSTER_ALREADY_EXISTS_ERROR:
         return Object.assign({}, state, {busterAlreadyExists: true});

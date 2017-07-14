@@ -72,3 +72,38 @@
 	margin-bottom: 50px;
 	border-radius: 3px;
 }
+
+@media (max-width:600px){
+    .content{
+        width: 100%;
+        top: 0;
+        border: none;
+    }
+
+    .content > h3{
+        font-weight: 100;
+    }
+
+    .content > div{
+        font-weight: 100;
+    }
+}
+
+@media(max-width:375px){
+    .content > div p {
+        padding: 0.1em 0;
+    }
+
+    .content > h3 {
+    margin: 0;
+	padding: 0.2em;
+	font-size: 2.4em;
+	font-weight: 100;
+    }
+
+    .content > div ul {
+	margin-bottom: -30px;
+	padding: 0 0 30px 10px;
+	text-align: left;
+}
+}

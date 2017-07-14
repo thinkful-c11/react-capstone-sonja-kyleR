@@ -2,6 +2,7 @@
 .alternatives{
     margin: auto;
     max-width: 50%;
+    min-width: 290px;
     margin-top: 1.5em;
     padding-top: .5em;
     padding-bottom: .5em;
@@ -16,9 +17,11 @@
     margin-bottom: .5em;
 }
 
-button{
+button, input{
     height: 1.5em;
     font-size: 16px;
+    border: .5px solid lightgrey;
+    border-radius: 5px;
 }
 
 .error{
@@ -32,4 +35,10 @@ button{
     padding-top: .2em;
     height: 1.3em;
     margin-top: .5em;
+}
+
+@media (max-width: 450px){
+	.alternatives{
+		max-width:290px;
+	}
 }
