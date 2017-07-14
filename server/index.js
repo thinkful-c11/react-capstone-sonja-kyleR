@@ -29,6 +29,7 @@ app.get('/api', (req, res) => {
 app.get('/api/unhealthyfoods', (req, res) => {
     UnhealthyFoods
         .find()
+        .sort({name: 1})
         .exec()
         .then(allFoods => {
             res.json(allFoods);
