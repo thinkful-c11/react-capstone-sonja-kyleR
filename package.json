@@ -12,7 +12,8 @@
     "install": "run-s install:server install:client",
     "install:server": "cd server && npm install",
     "install:client": "cd client && npm install",
-    "test": "mocha test/test-server/test-api.js --compilers js:babel-core/register"
+    "test": "mocha test/test-api.js --compilers js:babel-core/register",
+    "jest": "jest"
   },
   "cacheDirectories": [
     "node_modules",
@@ -30,22 +31,17 @@
     "cross-env": "^3.1.4",
     "express": "^4.14.1",
     "http-proxy-middleware": "^0.17.3",
-    "mongoose": "^4.11.1",
+    "mongoose": "^4.11.2",
     "npm-run-all": "^4.0.1",
     "react": "^15.6.1",
-    "react-redux": "^5.0.5",
-    "redux": "^3.7.1",
-    "redux-thunk": "^2.2.0",
     "xp": "^1.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-register": "^6.24.1",
-    "body-parser": "^1.17.2",
     "chai": "^4.0.2",
     "chai-http": "^3.0.0",
-    "dotenv": "^4.0.0",
-    "mocha": "^3.4.2",
-    "morgan": "^1.8.2"
+    "jest": "^20.0.4",
+    "mocha": "^3.4.2"
   }
 }

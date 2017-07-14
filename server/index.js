@@ -1,5 +1,3 @@
-//schemas
-//const Tastes = require('./models/tasteSchema');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const {TEST_DATABASE_URL, PORT} = require('./config');
@@ -17,10 +15,6 @@ const app = express();
 app.use(morgan('common'));
 app.use(bodyParser.json());
 app.use(express.static('../client/src/'));
-
-// app.get('/', function(req, res) {
-//   res.sendFile(__dirname + '/index.js');
-// });
 
 app.get('/api', (req, res) => {
     Categories
@@ -76,6 +70,18 @@ app.get('/api/:category/:unhealthyfood', (req, res) => {
         .catch(err => console.error(err));
 });
 
+app.get('/api/healthy/:unhealthyfood', (req, res) => {
+    HealthyFoods
+        .find({
+            correspondingUnhealthyFood: req.params.unhealthyfood,
+        })
+        .exec()
+        .then(healthyfood => {
+            res.json(healthyfood);
+        })
+        .catch(err => console.error(err));
+});
+
 app.post('/api/:category', (req, res) => {
     Categories
         .create({
@@ -120,16 +126,22 @@ app.post('/api/healthy/:unhealthyfood/:healthyfood', (req, res) => {
         });
 });
 
-app.get('/api/healthy/:unhealthyfood', (req, res) => {
+app.delete('/api/:category/:unhealthyfood/:healthyfood', (req, res) => {
     HealthyFoods
-        .find({
+        .remove({
             correspondingUnhealthyFood: req.params.unhealthyfood,
+            name: req.params.healthyfood
         })
-        .exec()
-        .then(healthyfood => {
-            res.json(healthyfood);
-        })
-        .catch(err => console.error(err));
+        .then(_res => res.status(204).json(
+            {deleted: {
+                name: req.params.healthyfood,
+                correspondingUnhealthyFood: req.params.unhealthyfood
+            }}
+        ))
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({error: 'Failed to delete'});
+        });
 });
 
 // Serve the built client
