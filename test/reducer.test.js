@@ -2,14 +2,16 @@ import * as actions from '../client/src/actions/index';
 import {reducer} from '../client/src/reducers/index';
 
 const initialState = {
-            unhealthyStuff: [],
-            selectedUnhealthy: "",
-            healthyStuff: [],
-            loading: false,
-            error: null,
-            showHealthyStuff: false,
-            showAddOption: false,
-        };
+    unhealthyStuff: [],
+    selectedUnhealthy: "",
+    healthyStuff: [],
+    loading: false,
+    error: null,
+    showHealthyStuff: false,
+    showAddOption: false,
+    busterAlreadyExists: false,
+    showInfoModal: false,
+};
 
 describe('reducer', function() {
     it('should return the state when nothing is passed in', function() {
@@ -109,7 +111,7 @@ describe('reducer', function() {
         expect(state).toEqual(Object.assign({}, myState, {selectedUnhealthy: craving, showAddOption: false}))
     });
     
-    it('should on set showAddOption to true on ADD_OTHER_CRAVING', function() {
+    it('should set showAddOption to true on ADD_OTHER_CRAVING', function() {
         const myState = Object.assign({}, initialState);
         const state = reducer(
             myState, 
@@ -121,7 +123,7 @@ describe('reducer', function() {
         expect(state).toEqual(Object.assign({}, state, {showHealthyStuff: false, showAddOption: true}))
     });
     
-    it('should on reset state to initialState on RESET_DEFAULTS', function() {
+    it('should reset state to initialState on RESET_DEFAULTS', function() {
         const myState = Object.assign({}, initialState);
         const state = reducer(
             myState, 
