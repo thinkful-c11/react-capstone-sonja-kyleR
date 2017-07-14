@@ -115,6 +115,42 @@ export const postUnhealthy = (unhealthyThing)=>dispatch=>{
   })
 }
 
+export const POST_HEALTHY_REQUEST = 'POST_HEALTHY_REQUEST';
+export const postHealthyRequest = (newCravingBuster)=>({
+  type: POST_HEALTHY_REQUEST,
+  newCravingBuster
+});
+
+export const POST_HEALTHY_ERROR = 'POST_HEALTHY_ERROR';
+export const postHealthyError = (error)=>({
+  type: POST_HEALTHY_ERROR,
+  error
+});
+
+export const POST_HEALTHY = 'POST_HEALTHY';
+export const postHealthy = (healthyThing)=>dispatch=>{
+  dispatch(postHealthyRequest(healthyThing))
+  const params = {
+    method: 'POST',
+    body: JSON.stringify({name: healthyThing.name, correspondingUnhealthyFood: healthyThing.correspondingUnhealthyFood}),
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  }
+  fetch(`/api/healthy/${healthyThing.correspondingUnhealthyFood}/${healthyThing.name}`, params)
+  .then(response => {
+    if(!response.ok){
+      Promise.reject(response.statusText)
+    }
+    dispatch(fetchHealthyStuff(healthyThing.correspondingUnhealthyFood));
+  })
+  .catch(error => {
+    console.error(error)
+    dispatch(postHealthyError(error))
+  })
+}
+
 //sync actions
 
 export const SELECT_CRAVING = 'SELECT_CRAVING';
@@ -131,4 +167,14 @@ export const addOtherCraving = () => ({
 export const RESET_DEFAULTS = 'RESET_DEFAULTS';
 export const resetDefaults = () => ({
     type: RESET_DEFAULTS,
+});
+
+export const BUSTER_ALREADY_EXISTS_ERROR = 'BUSTER_ALREADY_EXISTS_ERROR';
+export const busterAlreadyExistsError = () => ({
+    type: BUSTER_ALREADY_EXISTS_ERROR,
+});
+
+export const TOGGLE_INFO_MODAL = 'TOGGLE_INFO_MODAL';
+export const toggleInfoModal = () => ({
+    type: TOGGLE_INFO_MODAL,
 });

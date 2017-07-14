@@ -1,0 +1,12 @@
+@import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
+
+nav {
+	position: relative;
+	padding-right: 1em;
+    padding-top: .3em;
+}
+
+nav a {
+    float: right;
+	color: black;
+}

@@ -8,7 +8,6 @@ import './CravingSelector.css';
 export class CravingSelector extends Component{
     componentDidMount(){
         this.props.dispatch(fetchUnhealthyStuff());
-        // console.log("what is this:" + this.props.unhealthyStuff);
         console.log(store.getState())
     }
 
@@ -32,16 +31,13 @@ export class CravingSelector extends Component{
             this.props.dispatch(selectCraving(e.target.value));
             this.props.dispatch(fetchHealthyStuff(e.target.value));
         }
-        // console.log(e.target.value);
-        // console.log("selection in the state:" + this.props.selectedUnhealthy);
-        // console.log("healthy stuff:" + this.props.healthyStuff);
 
     }
 
     render(){
         return(
                 <form>
-                    <select name="cravings" onChange={e => this.onChange(e)}>
+                    <select name="cravings" value={this.props.selectedUnhealthy} onChange={e => this.onChange(e)}>
                         <option name='choose'>Select a craving</option>
                         {this.listUnhealthyStuff()}
                         <option name='other'>Other</option>

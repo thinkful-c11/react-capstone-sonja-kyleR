@@ -1,21 +1,35 @@
-*{
-    margin-top:.5em;
-}
 
 .alternatives{
     margin: auto;
     max-width: 50%;
-    margin-top:2em;
+    margin-top: 1.5em;
+    padding-top: .5em;
     padding-bottom: .5em;
     border: 1px solid lightgrey;
     border-radius: 5px;
 }
 
+
 .item{
     display:block;
+    margin-top: .3em;
+    margin-bottom: .5em;
 }
 
 button{
     height: 1.5em;
-    font-size: 14px;
+    font-size: 16px;
+}
+
+.error{
+    font-size: 16px;
+    background-color: orangered;
+    /*border: 1px solid red;*/
+    color: white;
+    border-radius: 2px;
+    width: 200px;
+    margin: auto;
+    padding-top: .2em;
+    height: 1.3em;
+    margin-top: .5em;
 }

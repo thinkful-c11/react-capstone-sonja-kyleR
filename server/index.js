@@ -105,7 +105,7 @@ app.post('/api/unhealthy/:unhealthyfood', (req, res) => {
         });
 });
 
-app.post('/api/:category/:unhealthyfood/:healthyfood', (req, res) => {
+app.post('/api/healthy/:unhealthyfood/:healthyfood', (req, res) => {
     HealthyFoods
         .create({
             name: req.params.healthyfood,
