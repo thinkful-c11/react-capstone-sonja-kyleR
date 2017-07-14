@@ -39,7 +39,7 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-register": "^6.24.1",
-    "chai": "^4.0.2",
+    "chai": "^4.1.0",
     "chai-http": "^3.0.0",
     "jest": "^20.0.4",
     "mocha": "^3.4.2"
