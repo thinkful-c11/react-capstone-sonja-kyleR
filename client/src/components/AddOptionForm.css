@@ -1,29 +1,30 @@
-
 .addOption{
     margin:auto;
     margin-top: 1em;
     padding-top: 1em;
     padding-bottom: 1em;
     max-width: 50%;
-    min-width: 290px;
+    min-width: 300px;
     border: 1px solid lightgrey;
     border-radius: 5px;
 }
 
 input{
     width:150px;
+    margin-top: .5em;
     font-size: 14px;
 }
 
 button{
     display:inline-block;
     margin-left:.5em;
+    margin-top: .5em;
     height: 1.5em;
     font-size: 14px;
 }
 
 @media (max-width: 450px){
 	.addOption{
-		max-width:290px;
+		max-width:200px;
 	}
 }

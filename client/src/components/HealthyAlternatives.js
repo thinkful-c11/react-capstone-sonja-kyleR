@@ -1,18 +1,12 @@
 import React, { Component }  from 'react'; 
 import { connect } from "react-redux";
 import {postHealthy, busterAlreadyExistsError} from '../actions';
-//import {store} from '../store.js';
 
 import './HealthyAlternatives.css';
 
 export class HealthyAlternatives extends Component {
-    // componentDidMount(){
-    //     this.props.dispatch(fetchHealthyStuff(this.props.selectedUnhealthy));
-    //     //console.log(this.props.healthyStuff);
-    // }
 
     listHealthyStuff(){
-        //console.log(this.props.healthyStuff);
         return this.props.healthyStuff.map((healthyItem) =>{
             return(
                 <div className='item'>
@@ -43,7 +37,8 @@ export class HealthyAlternatives extends Component {
             healthyStuff =  this.listHealthyStuff();
         }
         else{
-            healthyStuff = <div className="item">There are no craving busters, yet. Tell us your favorite!</div>;
+            healthyStuff = <div className="item">There are no craving busters, yet. 
+                                Tell us your favorite!</div>;
         }
 
         let busterError;

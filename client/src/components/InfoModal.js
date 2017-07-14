@@ -20,8 +20,11 @@ export class InfoModal extends React.Component {
                         <p>This is an app to help you combat unhealthy cravings. <br/>
                         This is how it works: </p>
                         <ul>
-                            <li>1. Select your craving from the drop-down menu. If you don't see what you want, select <strong>Other</strong> to add yours.</li>
-                            <li>2. You'll get a list of healthy alternatives. Add more if you know some!</li>
+                            <li>1. Select your craving from the drop-down menu. 
+                                   If you don't see what you want, select <strong>Other</strong> to 
+                                   add yours.</li>
+                            <li>2. You'll get a list of healthy alternatives. Add more if 
+                                   you know some!</li>
                         </ul>
                         <p>Then enjoy improved health and productivity. Happy snacking!</p>
                         <a className="close" href="#" onClick={e => this.onClose(e)}>Got It!</a>

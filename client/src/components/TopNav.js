@@ -16,9 +16,9 @@ export class TopNav extends React.Component {
     render() {
         return (
             <nav>
-                    <a className="what" href="#" onClick={e => this.toggleInfoModal(e)}>
-                        <i className="fa fa-question-circle fa-2x"  aria-hidden="true"></i>
-                    </a>
+                <a className="what" href="#" onClick={e => this.toggleInfoModal(e)}>
+                    <i className="fa fa-question-circle fa-2x"  aria-hidden="true"></i>
+                </a>
             </nav>
         );
     }

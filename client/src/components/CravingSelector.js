@@ -1,6 +1,7 @@
-import React, { Component }  from 'react'; //
+import React, { Component }  from 'react';
 import { connect } from "react-redux";
-import {fetchUnhealthyStuff, selectCraving, fetchHealthyStuff, addOtherCraving, resetDefaults} from '../actions';
+import {fetchUnhealthyStuff, selectCraving, fetchHealthyStuff, 
+        addOtherCraving, resetDefaults} from '../actions';
 import store from '../store.js';
 
 import './CravingSelector.css';
@@ -37,7 +38,8 @@ export class CravingSelector extends Component{
     render(){
         return(
                 <form>
-                    <select name="cravings" value={this.props.selectedUnhealthy} onChange={e => this.onChange(e)}>
+                    <select name="cravings" value={this.props.selectedUnhealthy} 
+                            onChange={e => this.onChange(e)}>
                         <option name='choose'>Select a craving</option>
                         {this.listUnhealthyStuff()}
                         <option name='other'>Other</option>
@@ -51,8 +53,6 @@ export class CravingSelector extends Component{
 const mapStateToProps = (state, props) => ({
     unhealthyStuff: state.unhealthyStuff,
     selectedUnhealthy: state.selectedUnhealthy,
-    //healthyStuff: state.healthyStuff,
-    //error: state.error
 });
 
 export default connect(mapStateToProps)(CravingSelector);

@@ -1,6 +1,4 @@
 .logo {
-  /*animation: App-logo-spin infinite 20s linear;*/
-  /*margin-top: .1em;*/
   margin-right: 1em;
   height: 80px;
 }
@@ -17,7 +15,8 @@
     margin-left: 1.5em;
 }
 
-/*@media(max-width: 350px){
-    width: 
+@media (max-width: 300px){
+    .header{
+        width: 300px;
+    }
 }
-*/

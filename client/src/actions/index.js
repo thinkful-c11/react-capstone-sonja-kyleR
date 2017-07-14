@@ -1,5 +1,6 @@
 //async actions
 
+//GET Unhealthy foods list
 export const FETCH_UNHEALTHY_REQUEST = 'FETCH_UNHEALTHY_REQUEST';
 export const fetchUnhealthyRequest = ()=>({
   type: FETCH_UNHEALTHY_REQUEST
@@ -29,7 +30,6 @@ export const fetchUnhealthyStuff = ()=>dispatch=>{
     return response.json()
   })
   .then(json => {
-    console.log("this is unhealthy json: ", json);
     return dispatch(fetchUnhealthySuccess(json))
   })
   .catch(err => {
@@ -38,6 +38,7 @@ export const fetchUnhealthyStuff = ()=>dispatch=>{
   })
 }
 
+//GET Healthy foods list that corresponds to an unhealthy food
 export const FETCH_HEALTHY_REQUEST = 'FETCH_HEALTHY_REQUEST';
 export const fetchHealthyRequest = (selectedUnhealthy)=>({
   type: FETCH_HEALTHY_REQUEST,
@@ -62,14 +63,11 @@ export const fetchHealthyStuff = (selectedUnhealthy) =>dispatch=>{
   return fetch(`/api/healthy/${selectedUnhealthy}`)
   .then(response => {
     if(!response.ok){
-      //console.log('response not ok');
       Promise.reject(response.statusText);
     }
     return response.json()
   })
   .then(json => {
-    //console.log('response successful!');
-    //console.log('this is json:' + json[0]);
     return dispatch(fetchHealthySuccess(json));
   })
   .catch(err => {
@@ -78,7 +76,7 @@ export const fetchHealthyStuff = (selectedUnhealthy) =>dispatch=>{
   })
 }
 
-
+//POST an Unhealthy food
 export const POST_UNHEALTHY_REQUEST = 'POST_UNHEALTHY_REQUEST';
 export const postUnhealthyRequest = (newCraving)=>({
   type: POST_UNHEALTHY_REQUEST,
@@ -115,6 +113,7 @@ export const postUnhealthy = (unhealthyThing)=>dispatch=>{
   })
 }
 
+//Post a Healthy food
 export const POST_HEALTHY_REQUEST = 'POST_HEALTHY_REQUEST';
 export const postHealthyRequest = (newCravingBuster)=>({
   type: POST_HEALTHY_REQUEST,
